@@ -20,14 +20,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: main
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-
-      - name: Install dependencies
-        run: |
-          npm ci
       - name: Run ${{ env.TESTGROUP }} Tests
         continue-on-error: true
         working-directory: ${{ env.TESTGROUP }}
@@ -40,4 +32,4 @@ jobs:
         with:
           name: ${{ env.TESTGROUP }}
           path: |
-            playwright-report
+            test-results/trace.zip
