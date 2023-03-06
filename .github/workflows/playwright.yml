@@ -1,32 +1,27 @@
-name: Test report upload
+name: Playwright Tests
 on:
-  workflow_dispatch:
-  pull_request:
-    branches: [main]
   push:
-    branches: [main]
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 jobs:
-  GithubPageTests:
-    name: "Github tests"
+  test:
     timeout-minutes: 60
-    runs-on: ubuntu-22.04
-    env:
-      TESTGROUP: Github test
-      BASEURL: https://playwright.dev/docs/accessibility-testing # Playwright tests use this for baseURL
-    environment:
-      name: Github Test
-      url: https://josh-keegan.github.io/Test-Results/
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          ref: main
-      - name: Run ${{ env.TESTGROUP }} Tests
-        continue-on-error: true
-        working-directory: ${{ env.TESTGROUP }}
-        run: |
-          npx playwright install
-           npx playwright test
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
       - uses: actions/upload-artifact@v3
+        if: always()
         with:
-          name: my pw report
-          path: C:\Code\Test Enviornment\Playwright Test\test-results
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
