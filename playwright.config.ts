@@ -32,7 +32,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
 
   reporter: [
-    ["html", { outputFolder: "Test-Results" + new Date().toISOString() }],
+    ["html", { outputFolder: "playwright-report" + new Date().toISOString() }],
   ],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
