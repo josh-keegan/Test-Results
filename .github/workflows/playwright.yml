@@ -26,10 +26,7 @@ jobs:
         run: |
           npx playwright install
            npx playwright test
-      - name: Upload HTML report as artifact. To troubleshoot failures, extract .zip and double-click index.html.
-        uses: actions/upload-artifact@v3
-        if: always()
+      - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.TESTGROUP }}
-          path: |
-            test-results/trace.zip
+          name: my pw report
+          path: C:\Code\Test Enviornment\Playwright Test\test-results
