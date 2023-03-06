@@ -1,5 +1,4 @@
 import { defineConfig, devices } from "@playwright/test";
-import type { PlaywrightTestConfig } from "@playwright/test";
 
 /**
  * Read environment variables from file.
@@ -31,9 +30,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
 
-  reporter: [
-    ["html", { outputFolder: "playwright-report" + new Date().toISOString() }],
-  ],
+  reporter: [["html", { outputFolder: "my-report" }]],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
